@@ -1,0 +1,13 @@
+.dockerignore
+node_modules
+server2
+npm-debug.log
+Dockerfile
+Dockerfile1
+Dockerfile2
+.env
+.git
+.gitignore
+.npmrc
+.eslintrc.js
+*.sh
