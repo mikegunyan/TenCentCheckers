@@ -7,11 +7,12 @@ import Save from './save';
 import Jump from './jump';
 import Invitation from './invitation';
 
+let client;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      client: {},
       usersList: [],
       clientID: '',
       opponentID: '',
@@ -71,22 +72,23 @@ class App extends React.Component {
     this.selectBlack = this.selectBlack.bind(this);
   }
 
-  componentDidMount() {
-    this.createConnection();
-  }
+  // componentDidMount() {
+  //   this.createConnection();
+  // }
 
-  componentWillUnmount() {
-    const { client, clientID, opponentID } = this.state;
-    client.send(JSON.stringify({
-      type: 'disconnect',
-      clientID,
-      opponentID
-    }));
-  }
+  // componentWillUnmount() {
+  //   const { client, clientID, opponentID } = this.state;
+  //   client.send(JSON.stringify({
+  //     type: 'disconnect',
+  //     clientID,
+  //     opponentID
+  //   }));
+  // }
 
   createConnection() {
     const { clientID, opponentID, sender } = this.state;
-    const client = new W3CWebSocket('ws://54.219.137.236:8000'); // 54.219.137.236
+    client = new W3CWebSocket('ws://54.219.137.236:8000'); // 54.219.137.236
+    // this.setState({ client });
     this.setState({ victory: '', victoryMessage: '' });
     client.onopen = () => {};
     client.onmessage = (message) => {
@@ -122,19 +124,25 @@ class App extends React.Component {
         }
       }
     };
-    return client;
+    // return client;
   }
 
   newConnection() {
-    const { client } = this.state;
+    // const { client } = this.state;
     this.setState({ sender: false });
-    client.close();
-    return this.createConnection();
+    console.log(client)
+    if (client) {
+      console.log('closed client')
+      client.close();
+    }
+    this.createConnection();
   }
 
   makeBoard(id, username, userid) {
-    const client = this.newConnection();
-    this.setState({ client });
+    // const { client } = this.state;
+    // const client =
+    this.newConnection();
+    // this.setState({ client });
     axios.get(`/api/boards/${id}`)
       .then((data) => {
         return data.data;
@@ -161,7 +169,7 @@ class App extends React.Component {
   }
 
   sendInvite(one, two) {
-    const { client } = this.state;
+    // const { client } = this.state;
     this.setState({ sender: true });
     client.send(JSON.stringify({
       type: 'invite',
@@ -171,7 +179,7 @@ class App extends React.Component {
   }
 
   sendMove(event) {
-    const { client } = this.state;
+    // const { client } = this.state;
     const target = event.target.getAttribute('name');
     this.setState({ moveSender: true });
     const { clientID, opponentID, selected, turn, autoJumpBlack, autoJumpRed } = this.state;
@@ -187,7 +195,7 @@ class App extends React.Component {
     }));
   }
   sendJump(choice) {
-    const { client, clientID, opponentID, turn } = this.state;
+    const { clientID, opponentID, turn } = this.state;
     client.send(JSON.stringify({
       type: 'jump',
       turn,
@@ -198,7 +206,7 @@ class App extends React.Component {
   }
 
   acceptInvite() {
-    const { client, clientID, opponentID } = this.state;
+    const { clientID, opponentID } = this.state;
     client.send(JSON.stringify({
       type: 'accept',
       clientID,
@@ -207,7 +215,7 @@ class App extends React.Component {
   }
 
   declineInvite() {
-    const { client, clientID, opponentID } = this.state;
+    const { clientID, opponentID } = this.state;
     client.send(JSON.stringify({
       type: 'decline',
       clientID,

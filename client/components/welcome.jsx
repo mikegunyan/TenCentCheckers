@@ -14,7 +14,7 @@ const Welcome = ({ username, modal, gameList, victory, message, savedView, users
     //   console.log('notAxios')
     //   makeBoard('000000000000000000000000', user, id);
     // } else {
-      console.log('axios')
+      // console.log('axios')
       axios.get('/user')
         .then((user) => {
           setUser(user.data.username);
