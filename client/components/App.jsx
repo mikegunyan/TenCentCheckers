@@ -86,7 +86,7 @@ class App extends React.Component {
 
   createConnection() {
     const { clientID, opponentID, sender } = this.state;
-    const client = new W3CWebSocket('ws://localhost:8000'); // 54.219.137.236
+    const client = new W3CWebSocket('ws://54.219.137.236:8000'); // 54.219.137.236
     this.setState({ victory: '', victoryMessage: '' });
     client.onopen = () => {};
     client.onmessage = (message) => {
