@@ -39,7 +39,6 @@ class App extends React.Component {
       playerTwo: 'Player Two',
     };
     this.createConnection = this.createConnection.bind(this);
-    this.newConnection = this.newConnection.bind(this);
     this.makeBoard = this.makeBoard.bind(this);
     this.sendInvite = this.sendInvite.bind(this);
     this.sendMove = this.sendMove.bind(this);
@@ -72,24 +71,13 @@ class App extends React.Component {
     this.selectBlack = this.selectBlack.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.createConnection();
-  // }
-
-  // componentWillUnmount() {
-  //   const { client, clientID, opponentID } = this.state;
-  //   client.send(JSON.stringify({
-  //     type: 'disconnect',
-  //     clientID,
-  //     opponentID
-  //   }));
-  // }
-
   createConnection() {
     const { clientID, opponentID, sender } = this.state;
-    client = new W3CWebSocket('ws://54.219.137.236:8000'); // 54.219.137.236
-    // this.setState({ client });
-    this.setState({ victory: '', victoryMessage: '' });
+    if (client) {
+      client.close();
+    }
+    client = new W3CWebSocket('ws://localhost:8000'); // 54.219.137.236
+    this.setState({ victory: '', victoryMessage: '', sender: false });
     client.onopen = () => {};
     client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
@@ -124,25 +112,10 @@ class App extends React.Component {
         }
       }
     };
-    // return client;
-  }
-
-  newConnection() {
-    // const { client } = this.state;
-    this.setState({ sender: false });
-    console.log(client)
-    if (client) {
-      console.log('closed client')
-      client.close();
-    }
-    this.createConnection();
   }
 
   makeBoard(id, username, userid) {
-    // const { client } = this.state;
-    // const client =
-    this.newConnection();
-    // this.setState({ client });
+    this.createConnection();
     axios.get(`/api/boards/${id}`)
       .then((data) => {
         return data.data;
@@ -169,7 +142,6 @@ class App extends React.Component {
   }
 
   sendInvite(one, two) {
-    // const { client } = this.state;
     this.setState({ sender: true });
     client.send(JSON.stringify({
       type: 'invite',
@@ -179,7 +151,6 @@ class App extends React.Component {
   }
 
   sendMove(event) {
-    // const { client } = this.state;
     const target = event.target.getAttribute('name');
     this.setState({ moveSender: true });
     const { clientID, opponentID, selected, turn, autoJumpBlack, autoJumpRed } = this.state;
@@ -862,7 +833,6 @@ class App extends React.Component {
         <Welcome
           username={playerOne}
           makeBoard={this.makeBoard}
-          newConnection={this.newConnection}
           modal={modal}
           victory={victory}
           message={victoryMessage}

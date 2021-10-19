@@ -1,29 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Welcome = ({ username, modal, gameList, victory, message, savedView, usersList, clientID, changeView, changeVictory, makeBoard, newConnection, sendInvite, onClose }) => {
+const Welcome = ({ username, modal, gameList, victory, message, savedView, usersList, clientID, changeView, changeVictory, makeBoard, sendInvite, onClose }) => {
   const [user, setUser] = useState('');
   const [id, setId] = useState('');
 
   useEffect(() => {
-    start();
+    axios.get('/user')
+      .then((user) => {
+        setUser(user.data.username);
+        setId(user.data.id);
+        makeBoard('000000000000000000000000', user.data.username, user.data.id);
+      });
   }, []);
-
-  const start = () => {
-    // if (user !== '') {
-    //   console.log('notAxios')
-    //   makeBoard('000000000000000000000000', user, id);
-    // } else {
-      // console.log('axios')
-      axios.get('/user')
-        .then((user) => {
-          setUser(user.data.username);
-          setId(user.data.id);
-          makeBoard('000000000000000000000000', user.data.username, user.data.id);
-        });
-    // }
-  };
-
 
   if (!modal) {
     return null;
@@ -39,8 +28,6 @@ const Welcome = ({ username, modal, gameList, victory, message, savedView, users
           </div>
           <button className="altButton" type="button" onClick={() => {
             makeBoard('000000000000000000000000', user, id);
-            // newConnection(() => start());
-            // start();
           }}>Back to Welcome Page</button>
         </div>
       </div>
