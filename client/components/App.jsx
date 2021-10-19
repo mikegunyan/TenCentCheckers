@@ -87,7 +87,7 @@ class App extends React.Component {
   createConnection() {
     const { clientID, opponentID, sender } = this.state;
     const client = new W3CWebSocket('ws://54.219.137.236:8000'); // 54.219.137.236
-    this.setState({ client, victory: '', victoryMessage: '' });
+    this.setState({ victory: '', victoryMessage: '' });
     client.onopen = () => {};
     client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
@@ -126,7 +126,7 @@ class App extends React.Component {
   }
 
   newConnection() {
-    const { client, clientID, opponentID } = this.state;
+    const { client } = this.state;
     this.setState({ sender: false });
     client.close();
     return this.createConnection();
@@ -134,7 +134,7 @@ class App extends React.Component {
 
   makeBoard(id, username, userid) {
     const client = this.newConnection();
-    // this.setState({ client });
+    this.setState({ client });
     axios.get(`/api/boards/${id}`)
       .then((data) => {
         return data.data;
