@@ -3,6 +3,7 @@ import axios from 'axios';
 import Settings from './settings';
 import Victory from './victory';
 import Jump from './jump';
+import { Howl } from 'howler';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class App extends React.Component {
       playerTwo: 'Player Two',
     };
     this.makeBoard = this.makeBoard.bind(this);
+    this.playSound = this.playSound.bind(this);
     this.settings = this.settings.bind(this);
     this.toggleJump = this.toggleJump.bind(this);
     this.skipJump = this.skipJump.bind(this);
@@ -45,6 +47,14 @@ class App extends React.Component {
 
   componentDidMount() {
     this.makeBoard('000000000000000000000000');
+  }
+
+  playSound(src) {
+    const sound = new Howl ({
+      src,
+      html5: true
+    });
+    sound.play();
   }
 
   makeBoard(id) {
@@ -349,6 +359,7 @@ class App extends React.Component {
         }
       }
     }
+    this.playSound('https://tencentcheckers.s3.us-west-2.amazonaws.com/move.mp3');
   }
 
   resetRed() {
@@ -611,7 +622,7 @@ class App extends React.Component {
       <div>
         <img onClick={this.settings} className="settings" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/settings.png"/>
         <a href="http://mrgunyan.com" target="_blank">
-          <img className="mr" src="https://michaelgunyanresume.s3.us-west-2.amazonaws.com/images/mr.png"/>
+          <img className="mr" src="https://michaelgunyanresume.s3.us-west-2.amazonaws.com/images/blackMr.png"/>
         </a>
         <div className="head">
           <h5>{`Your turn ${playersTurn()}!`}</h5>

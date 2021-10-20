@@ -38,6 +38,7 @@ class App extends React.Component {
       playerOne: 'Player One',
       playerTwo: 'Player Two',
     };
+    this.playSound = this.playSound.bind(this);
     this.createConnection = this.createConnection.bind(this);
     this.makeBoard = this.makeBoard.bind(this);
     this.sendInvite = this.sendInvite.bind(this);
@@ -69,6 +70,14 @@ class App extends React.Component {
     this.resetBlack = this.resetBlack.bind(this);
     this.resetBlackJump = this.resetBlackJump.bind(this);
     this.selectBlack = this.selectBlack.bind(this);
+  }
+
+  playSound(src) {
+    const sound = new Howl ({
+      src,
+      html5: true
+    });
+    sound.play();
   }
 
   createConnection() {
@@ -527,6 +536,7 @@ class App extends React.Component {
         }
       }
     }
+    this.playSound('https://tencentcheckers.s3.us-west-2.amazonaws.com/move.mp3');
   }
 
   resetRed(selected) {
@@ -784,7 +794,7 @@ class App extends React.Component {
       <div>
         <img onClick={this.settings} className="settings" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/settings.png"/>
         <a href="http://mrgunyan.com" target="_blank">
-          <img className="mr" src="https://michaelgunyanresume.s3.us-west-2.amazonaws.com/images/mr.png"/>
+          <img className="mr" src="https://michaelgunyanresume.s3.us-west-2.amazonaws.com/images/blackMr.png"/>
         </a>
         <div className="head">
           <h5>{turn === 'black' ? sender ? `Waiting on ${playerTwo}` : `Your turn ${playerOne}` : sender ? `Your turn ${playerOne}` : `Waiting on ${playerTwo}`}!</h5>
