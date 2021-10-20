@@ -6,7 +6,7 @@ const buttons = (modal, saveGame, changeGame, exit) => {
   }
   return (
     <div>
-      <button className="altButton" type="button" onClick={saveGame}>Save Game</button>
+      {/* <button className="altButton" type="button" onClick={saveGame}>Save Game</button> */}
       <button className="altButton" type="button" onClick={() => { exit(); changeGame(); }}>Change Game</button>
     </div>
   );

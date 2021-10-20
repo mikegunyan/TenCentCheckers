@@ -259,8 +259,9 @@ class App extends React.Component {
   }
 
   changeGame() {
+    const { playerOne, id} = this.state;
     this.toggleModal();
-    this.makeBoard('000000000000000000000000');
+    this.makeBoard('000000000000000000000000', playerOne, id);
   }
 
   toggleModal() {
