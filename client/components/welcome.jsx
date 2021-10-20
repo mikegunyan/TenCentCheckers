@@ -6,12 +6,16 @@ const Welcome = ({ username, modal, gameList, victory, message, savedView, users
   const [id, setId] = useState('');
 
   useEffect(() => {
-    axios.get('/user')
-      .then((user) => {
-        setUser(user.data.username);
-        setId(user.data.id);
-        makeBoard('000000000000000000000000', user.data.username, user.data.id);
-      });
+    if (user === '') {
+      axios.get('/user')
+        .then((user) => {
+          setUser(user.data.username);
+          setId(user.data.id);
+          makeBoard('000000000000000000000000', user.data.username, user.data.id);
+        });
+    } else {
+      makeBoard('000000000000000000000000', user, id);
+    }
   }, []);
 
   if (!modal) {
