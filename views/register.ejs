@@ -40,15 +40,27 @@
           const validateEmail = () => {
             const email = document.formBox.email.value;
             const at = email.indexOf('@');
-            const dot = email.indexOf('.');
+            const dot = email.indexOf('.', at);
+            const hasSpace = email.includes(' ');
             if (at < 1) {
-              document.getElementsByClassName('message')[0].innerText = 'Not a valid email address!';
+              if (at === -1) {
+                document.getElementsByClassName('message')[0].innerText = 'Email address must contain an @ symbol';
+              } else {
+                document.getElementsByClassName('message')[0].innerText = '@ symbol cannot start email address!';
+              }
               document.getElementsByClassName('inActiveInput')[0].setAttribute('disabled', '');
             } else if (dot < at + 2) {
-              document.getElementsByClassName('message')[0].innerText = 'Not a valid email address!';
+              if (dot === -1) {
+                document.getElementsByClassName('message')[0].innerText = 'Email address must have a dot after the domain name!';
+              } else {
+                document.getElementsByClassName('message')[0].innerText = 'Email address must have a domain name length of at least one!';
+              }
               document.getElementsByClassName('inActiveInput')[0].setAttribute('disabled', '');
             } else if (dot + 2 >= email.length) {
-              document.getElementsByClassName('message')[0].innerText = 'Not a valid email address!';
+              document.getElementsByClassName('message')[0].innerText = 'Email address must have at least two characters after the dot!';
+              document.getElementsByClassName('inActiveInput')[0].setAttribute('disabled', '');
+            } else if (hasSpace) {
+              document.getElementsByClassName('message')[0].innerText = 'Email address must not contain any spaces!';
               document.getElementsByClassName('inActiveInput')[0].setAttribute('disabled', '');
             } else {
               document.getElementsByClassName('message')[0].innerText = 'Email address is valid!';
