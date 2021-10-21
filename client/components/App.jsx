@@ -6,6 +6,8 @@ import Settings from './settings';
 import Save from './save';
 import Jump from './jump';
 import Invitation from './invitation';
+import Messager from './messager';
+import { Howl } from 'howler';
 
 let client;
 
@@ -13,6 +15,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      openMessager: false,
+      messageCount: 0,
+      messages: [],
       usersList: [],
       clientID: '',
       opponentID: '',
@@ -41,6 +46,8 @@ class App extends React.Component {
     this.playSound = this.playSound.bind(this);
     this.createConnection = this.createConnection.bind(this);
     this.makeBoard = this.makeBoard.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
     this.sendInvite = this.sendInvite.bind(this);
     this.sendMove = this.sendMove.bind(this);
     this.sendJump = this.sendJump.bind(this);
@@ -120,6 +127,19 @@ class App extends React.Component {
           this.skipJump(dataFromServer.turn);
         }
       }
+      if (dataFromServer.type === 'message') {
+        const { messages, messageCount, openMessager } = this.state;
+        let newCount = openMessager ? messageCount : messageCount + 1;
+        let newMessages = messages.slice();
+        newMessages.push({
+          source: 'opponent',
+          message: dataFromServer.message
+        });
+        this.setState({ messages: newMessages, messageCount: newCount });
+        if (!openMessager) {
+          this.playSound('https://tencentcheckers.s3.us-west-2.amazonaws.com/message.mp3');
+        }
+      }
     };
   }
 
@@ -148,6 +168,26 @@ class App extends React.Component {
             }));
           });
       });
+  }
+
+  toggleDrawer() {
+    const { openMessager } = this.state;
+    this.setState({ openMessager: !openMessager, messageCount: 0 });
+  }
+
+  sendMessage(message) {
+    const { messages, opponentID } = this.state;
+    let newMessages = messages.slice();
+    newMessages.push({
+      source: 'client',
+      message
+    });
+    this.setState({ messages: newMessages });
+    client.send(JSON.stringify({
+      type: 'message',
+      opponentID,
+      message
+    }));
   }
 
   sendInvite(one, two) {
@@ -765,8 +805,8 @@ class App extends React.Component {
   }
 
   render() {
-    const { sender, board, turn, modal, gameList, playerOne, playerTwo, victory, settings,
-      savedView, saveView, nextJump, victoryMessage, usersList, clientID, invitation, moveSender
+    const { sender, board, turn, modal, gameList, playerOne, playerTwo, victory, settings, messages, messageCount,
+      savedView, saveView, nextJump, victoryMessage, usersList, clientID, invitation, openMessager, moveSender
     } = this.state;
     const whichPiece = (square, index, i) => {
       if (square[0] === null) {
@@ -793,6 +833,15 @@ class App extends React.Component {
     };
     return (
       <div>
+        <Messager
+          openMessager={openMessager}
+          messageCount={messageCount}
+          messages={messages}
+          playerOne={playerOne}
+          playerTwo={playerTwo}
+          toggleDrawer={this.toggleDrawer}
+          sendMessage={this.sendMessage}
+        />
         <img onClick={this.settings} className="settings" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/settings.png"/>
         <a href="http://mrgunyan.com" target="_blank">
           <img className="mr" src="https://michaelgunyanresume.s3.us-west-2.amazonaws.com/images/blackMr.png"/>

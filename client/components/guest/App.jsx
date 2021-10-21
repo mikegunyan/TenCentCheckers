@@ -3,12 +3,14 @@ import axios from 'axios';
 import Settings from './settings';
 import Victory from './victory';
 import Jump from './jump';
+import Messager from './messager';
 import { Howl } from 'howler';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      openMessager: false,
       nextJump: false,
       settings: false,
       board: [],
@@ -24,6 +26,7 @@ class App extends React.Component {
       playerTwo: 'Player Two',
     };
     this.makeBoard = this.makeBoard.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
     this.playSound = this.playSound.bind(this);
     this.settings = this.settings.bind(this);
     this.toggleJump = this.toggleJump.bind(this);
@@ -55,6 +58,11 @@ class App extends React.Component {
       html5: true
     });
     sound.play();
+  }
+
+  toggleDrawer() {
+    const { openMessager } = this.state;
+    this.setState({ openMessager: !openMessager });
   }
 
   makeBoard(id) {
@@ -587,7 +595,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { board, turn, playerOne, playerTwo, victory, settings, nextJump, victoryMessage,
+    const { openMessager, board, turn, playerOne, playerTwo, victory, settings, nextJump, victoryMessage,
     } = this.state;
     const playersTurn = () => {
       if (turn === 'black') {
@@ -620,6 +628,7 @@ class App extends React.Component {
     };
     return (
       <div>
+        <Messager openMessager={openMessager} toggleDrawer={this.toggleDrawer} />
         <img onClick={this.settings} className="settings" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/settings.png"/>
         <a href="http://mrgunyan.com" target="_blank">
           <img className="mr" src="https://michaelgunyanresume.s3.us-west-2.amazonaws.com/images/blackMr.png"/>
