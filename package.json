@@ -7,8 +7,6 @@
     "build": "webpack -w",
     "start": "nodemon server/index.js",
     "start2": "nodemon server2/index.js",
-    "start3": "nodemon server3/index.js",
-    "start4": "nodemon server4/index.js",
     "seed": "node database/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

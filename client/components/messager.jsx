@@ -17,9 +17,18 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const Messager = ({ openMessager, messageCount, messages, playerOne, playerTwo, toggleDrawer, sendMessage }) => {
   const [message, setMessage] = useState('');
+
   const handleChange = (event) => {
     setMessage(event.target.value);
   };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter' && message !== '') {
+      sendMessage(message);
+      setMessage('');
+    }
+  };
+
   if (!openMessager) {
     return (
       <div className={openMessager ? 'drawer openDrawer' : 'drawer'}>
@@ -64,11 +73,19 @@ const Messager = ({ openMessager, messageCount, messages, playerOne, playerTwo, 
           </div>
           <div>
             <div className="sendBox">
-              <input value={message} onChange={handleChange} className="send"></input>
+              <input
+                value={message}
+                onChange={handleChange}
+                onKeyPress={handleKeyPress}
+                className="send"
+              >
+              </input>
               <button
                 onClick={() => {
-                  sendMessage(message);
-                  setMessage('');
+                  if (message !== '') {
+                    sendMessage(message);
+                    setMessage('');
+                  }
                 }}
                 className="sendButton"
               >

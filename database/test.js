@@ -138,9 +138,18 @@ const users = [
     id: '1617152727631',
     firstName: 'Ayla',
     lastName: 'Gibson',
-    email: 'hipchick1oh1@yahoo.com',
+    email: 'gibson.ayan@yahoo.com',
     userName: 'Funstuff69',
     password: '$2b$10$7MMO0nJbxdN5r2uRvOLs2OMIV3ghX9wNdkRxSK.HCiRIsG1CTmYuC',
+  },
+  {
+    _id: '60676bd61029f4fc9cd84a06',
+    id: '1617152727632',
+    firstName: 'Joseph',
+    lastName: 'Gunyan',
+    email: 'josephgunyan82@gmail.com',
+    userName: 'michif454',
+    password: '$2b$10$shr.oh.FC.D9e5F3TLUcROu6.g2kWOUPh73vKf8kcWbLPKgv.zA5m',
   }
 ];
 
@@ -171,6 +180,11 @@ const games = {
     gameId: '111111111111111111111111',
   }],
   _id: '60676bd61029f4fc9cd84a05',
+  games: [{
+    name: 'Test',
+    gameId: '111111111111111111111111',
+  }],
+  _id: '60676bd61029f4fc9cd84a06',
   games: [{
     name: 'Test',
     gameId: '111111111111111111111111',

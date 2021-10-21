@@ -92,7 +92,7 @@ class App extends React.Component {
     if (client) {
       client.close();
     }
-    client = new W3CWebSocket('ws://54.219.137.236:8000'); // 54.219.137.236
+    client = new W3CWebSocket('ws://localhost:8000'); // 54.219.137.236
     this.setState({ victory: '', victoryMessage: '', sender: false });
     client.onopen = () => {};
     client.onmessage = (message) => {
@@ -131,7 +131,7 @@ class App extends React.Component {
         const { messages, messageCount, openMessager } = this.state;
         let newCount = openMessager ? messageCount : messageCount + 1;
         let newMessages = messages.slice();
-        newMessages.push({
+        newMessages.unshift({
           source: 'opponent',
           message: dataFromServer.message
         });
@@ -178,7 +178,7 @@ class App extends React.Component {
   sendMessage(message) {
     const { messages, opponentID } = this.state;
     let newMessages = messages.slice();
-    newMessages.push({
+    newMessages.unshift({
       source: 'client',
       message
     });

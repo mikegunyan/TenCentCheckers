@@ -36,6 +36,13 @@ body {
   background-image: url('https://tencentcheckers.s3.us-west-2.amazonaws.com/dark.jpg');
   cursor: auto;
 }
+.rotate {
+  -webkit-transform:rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
 .selectedSquare {
   filter: brightness(70%);
 }
@@ -67,6 +74,7 @@ body {
   top: 0; bottom: 0; left: 0; right: 0;
   z-index: 7;
 }
+
 
 /**  Inputs  **/
 .message {
@@ -168,24 +176,10 @@ button:hover {
 .mr {
   position: fixed;
   top: 20px; right: 50px;
-  z-index: 4;
+  z-index: 9;
   height: 30px;
   width: 30px;
   cursor: pointer;
-}
-
-
-
-
-
-
-
-.rotate {
-  -webkit-transform:rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
 }
 
 
@@ -207,7 +201,7 @@ button:hover {
 }
 .drawer {
   position: fixed;
-  top: 10px; right: 0px; bottom: 10px;
+  top: 50px; right: 0px; bottom: 10px;
   border-radius: 15px 0px 0px 15px;
   width: fit-content;
   z-index: 5;
@@ -225,6 +219,8 @@ button:hover {
   width: 100px;
 }
 .messages {
+  display: flex;
+  flex-direction: column-reverse;
   height: 90%;
   width: 100%;
   margin: 0px;
