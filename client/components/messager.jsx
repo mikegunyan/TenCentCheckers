@@ -15,7 +15,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const Messager = ({ openMessager, messageCount, messages, playerOne, playerTwo, toggleDrawer, sendMessage }) => {
+const Messager = ({ openMessager, messageCount, mobileBrowser, messages, playerOne, playerTwo, toggleDrawer, sendMessage }) => {
   const [message, setMessage] = useState('');
 
   const handleChange = (event) => {
@@ -33,7 +33,7 @@ const Messager = ({ openMessager, messageCount, messages, playerOne, playerTwo, 
     return (
       <div className={openMessager ? 'drawer openDrawer' : 'drawer'}>
         <button
-          className='drawerButton'
+          className={mobileBrowser ? 'drawerButton mobileButton' : 'drawerButton'}
           onClick={toggleDrawer}
         >
           <Stack spacing={4} direction="row" sx={{ color: 'action.active' }}>
@@ -47,9 +47,9 @@ const Messager = ({ openMessager, messageCount, messages, playerOne, playerTwo, 
   }
   return (
     <div>
-      <div className={openMessager ? 'drawer openDrawer' : 'drawer'}>
+      <div className={openMessager ? `drawer openDrawer${mobileBrowser ? ' mobileOpenDrawer' : ''}` : 'drawer'}>
         <button
-          className='drawerButton'
+          className={mobileBrowser ? 'drawerButton mobileButton' : 'drawerButton'}
           onClick={toggleDrawer}
         >
           <Stack spacing={4} direction="row" sx={{ color: 'action.active' }}>
@@ -58,7 +58,7 @@ const Messager = ({ openMessager, messageCount, messages, playerOne, playerTwo, 
             </StyledBadge>
           </Stack>
         </button>
-        <div className="drawerContent">
+        <div className={mobileBrowser ? 'drawerContent mobileContent' : 'drawerContent'}>
           <div className="messages">
             {messages.map((message, index) =>
               <div key={index}>
