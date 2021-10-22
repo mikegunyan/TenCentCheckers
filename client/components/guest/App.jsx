@@ -627,8 +627,7 @@ class App extends React.Component {
       );
     };
     return (
-      <div>
-        <Messager openMessager={openMessager} toggleDrawer={this.toggleDrawer} />
+      <div className="bodyBackground">
         <img onClick={this.settings} className="settings" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/settings.png"/>
         <a href="http://mrgunyan.com" target="_blank">
           <img className="mr" src="https://michaelgunyanresume.s3.us-west-2.amazonaws.com/images/blackMr.png"/>
@@ -653,6 +652,12 @@ class App extends React.Component {
             </div>
           ))}
         </div>
+
+
+        <Messager
+          openMessager={openMessager}
+          toggleDrawer={this.toggleDrawer}
+        />
 
         <Settings
           exit={this.settings}

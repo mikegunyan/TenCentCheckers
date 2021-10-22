@@ -852,16 +852,6 @@ class App extends React.Component {
     };
     return (
       <div className="bodyBackground">
-        <Messager
-          openMessager={openMessager}
-          mobileBrowser={mobileBrowser}
-          messageCount={messageCount}
-          messages={messages}
-          playerOne={playerOne}
-          playerTwo={playerTwo}
-          toggleDrawer={this.toggleDrawer}
-          sendMessage={this.sendMessage}
-        />
         <img onClick={this.settings} className="settings" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/settings.png"/>
         <a href="http://mrgunyan.com" target="_blank">
           <img className="mr" src="https://michaelgunyanresume.s3.us-west-2.amazonaws.com/images/blackMr.png"/>
@@ -886,6 +876,17 @@ class App extends React.Component {
             </div>
           ))}
         </div>
+
+        <Messager
+          openMessager={openMessager}
+          mobileBrowser={mobileBrowser}
+          messageCount={messageCount}
+          messages={messages}
+          playerOne={playerOne}
+          playerTwo={playerTwo}
+          toggleDrawer={this.toggleDrawer}
+          sendMessage={this.sendMessage}
+        />
 
         <Settings
           saveGame={this.saveGame}

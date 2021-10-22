@@ -17,7 +17,7 @@
   max-height: 100px;
   margin: 25px;
 }
-.redSquare, .blackSquare, .selectedSquare,.selectedPiece {
+.redSquare, .blackSquare, .selectedSquare, .selectedPiece {
   cursor: pointer;
   background-image: url('https://tencentcheckers.s3.us-west-2.amazonaws.com/light.jpg');
   background-repeat: no-repeat;
@@ -228,6 +228,7 @@ button:hover {
 }
 .messages {
   display: flex;
+  font-size: 20px;
   flex-direction: column-reverse;
   height: 90%;
   width: 100%;
