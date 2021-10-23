@@ -159,6 +159,9 @@ class App extends React.Component {
           this.playSound('https://tencentcheckers.s3.us-west-2.amazonaws.com/message.mp3');
         }
       }
+      if (dataFromServer.type === 'leftGame') {
+        this.setState({ leftGame: true, settings: true });
+      }
     };
   }
 
@@ -180,7 +183,7 @@ class App extends React.Component {
               data.playerTwo = 'Player Two';
             }
             this.setState({
-              board: data.board, black: data.black, red: data.red, turn: data.turn, autoJumpRed: data.autoJumpRed, autoJumpBlack: data.autoJumpBlack, playerTwo: data.playerTwo, victory: '', playerOne: data.username, id: data.id, gameList: games.data.games });
+              board: data.board, black: data.black, red: data.red, turn: data.turn, autoJumpRed: data.autoJumpRed, autoJumpBlack: data.autoJumpBlack, playerTwo: data.playerTwo, victory: '', playerOne: data.username, id: data.id, gameList: games.data.games, messages: [] });
             client.send(JSON.stringify({
               type: 'username',
               username: data.username
@@ -317,8 +320,15 @@ class App extends React.Component {
     });
   }
 
-  changeGame() {
-    const { playerOne, id} = this.state;
+  changeGame(leftFirst) {
+    const { playerOne, id, opponentID } = this.state;
+    if (leftFirst) {
+      client.send(JSON.stringify({
+        type: 'leftGame',
+        opponentID
+      }));
+    }
+    this.setState({ leftGame: false });
     this.toggleModal();
     this.makeBoard('000000000000000000000000', playerOne, id);
   }
@@ -824,7 +834,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { sender, board, turn, modal, gameList, playerOne, playerTwo, victory, settings, messages, messageCount,
+    const { sender, board, turn, modal, gameList, playerOne, leftGame, playerTwo, victory, settings, messages, messageCount,
       savedView, saveView, nextJump, victoryMessage, usersList, clientID, invitation, openMessager, moveSender, mobileBrowser,
     } = this.state;
     const whichPiece = (square, index, i) => {
@@ -893,6 +903,8 @@ class App extends React.Component {
           changeGame={this.changeGame}
           exit={this.settings}
           modal={modal}
+          leftGame={leftGame}
+          playerTwo={playerTwo}
           settings={settings}
         />
 
