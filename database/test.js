@@ -138,9 +138,9 @@ const users = [
     id: '1617152727631',
     firstName: 'Ayla',
     lastName: 'Gibson',
-    email: 'gibson.ayan@yahoo.com',
-    userName: 'Funstuff69',
-    password: '$2b$10$7MMO0nJbxdN5r2uRvOLs2OMIV3ghX9wNdkRxSK.HCiRIsG1CTmYuC',
+    email: 'Gibson.ayan@yahoo.com',
+    userName: 'Peanut33',
+    password: '$2b$10$WWJDaR8ZaVyX7gKor4LysuY6VmTIvcIP19smpQW8/QdqqLqRH6Yma',
   },
   {
     _id: '60676bd61029f4fc9cd84a06',
