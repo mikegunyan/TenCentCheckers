@@ -123,7 +123,7 @@ class App extends React.Component {
         this.setState({ opponentID: dataFromServer.playerTwo, playerTwo: dataFromServer.username, invitation: true });
       }
       if (dataFromServer.type === 'accept') {
-        this.setState({ invitation: false, modal: false });
+        this.setState({ invitation: false, modal: false, leftGame: false, settings: false });
       }
       if (dataFromServer.type === 'decline') {
         this.setState({ invitation: false, sender: false, playerTwo: 'Player Two', opponentID: '' });
@@ -160,7 +160,7 @@ class App extends React.Component {
         }
       }
       if (dataFromServer.type === 'leftGame') {
-        this.setState({ leftGame: true, settings: true });
+        this.setState({ sender: false, leftGame: true, settings: true });
       }
     };
   }
