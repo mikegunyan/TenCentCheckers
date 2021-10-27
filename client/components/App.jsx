@@ -373,8 +373,8 @@ class App extends React.Component {
   }
 
   checkNextJumpRed(rows, columns) {
-    const { board } = this.state;
-    board[rows][columns][1] = 'selectedPiece';
+    const { board, sender } = this.state;
+    board[rows][columns][1] = sender ? 'selectedPiece selectedPieceRotated' : 'selectedPiece';
     if (rows > 1 && columns > 1 && board[rows - 2][columns - 2] !== undefined && board[rows - 2][columns - 2][0] === null && board[rows][columns][0] === 'X' && (board[rows - 1][columns - 1][0] === 'o' || board[rows - 1][columns - 1][0] === 'O')) {
       board[rows - 2][columns - 2][1] = 'selectedSquare';
       board[rows - 2][columns - 2][2] = 'sendMove';
@@ -396,8 +396,8 @@ class App extends React.Component {
   }
 
   checkNextJumpBlack(rows, columns) {
-    const { board } = this.state;
-    board[rows][columns][1] = 'selectedPiece';
+    const { board, sender } = this.state;
+    board[rows][columns][1] = sender ? 'selectedPiece selectedPieceRotated' : 'selectedPiece';
     if (rows > 1 && columns > 1 && board[rows - 2][columns - 2] !== undefined && board[rows - 2][columns - 2][0] === null && (board[rows - 1][columns - 1][0] === 'x' || board[rows - 1][columns - 1][0] === 'X')) {
       board[rows - 2][columns - 2][1] = 'selectedSquare';
       board[rows - 2][columns - 2][2] = 'sendMove';
@@ -701,7 +701,7 @@ class App extends React.Component {
         if (selected.length > 0) {
           this.resetRedJump(selected);
         } else {
-          board[rows][columns][1] = 'selectedPiece';
+          board[rows][columns][1] = sender ? 'selectedPiece selectedPieceRotated' : 'selectedPiece';
           if (rows > 1 && columns > 1 && board[rows - 2][columns - 2] !== undefined && board[rows - 2][columns - 2][0] === null && board[rows][columns][0] === 'X' && (board[rows - 1][columns - 1][0] === 'o' || board[rows - 1][columns - 1][0] === 'O')) {
             board[rows - 2][columns - 2][1] = 'selectedSquare';
             board[rows - 2][columns - 2][2] = 'sendMove';
@@ -723,7 +723,7 @@ class App extends React.Component {
       } else if (selected.length > 0) {
         this.resetRed(selected);
       } else {
-        board[rows][columns][1] = 'selectedPiece';
+        board[rows][columns][1] = sender ? 'selectedPiece selectedPieceRotated' : 'selectedPiece';
         if (rows > 0 && columns > 0 && board[rows - 1][columns - 1]
           !== undefined && board[rows - 1][columns - 1][0] === null && board[rows][columns][0] === 'X') {
           board[rows - 1][columns - 1][1] = 'selectedSquare';
@@ -813,7 +813,7 @@ class App extends React.Component {
         if (selected.length > 0) {
           this.resetBlackJump(selected);
         } else {
-          board[rows][columns][1] = 'selectedPiece';
+          board[rows][columns][1] = sender ? 'selectedPiece selectedPieceRotated' : 'selectedPiece';
           if (rows > 1 && columns > 1 && board[rows - 2][columns - 2] !== undefined && board[rows - 2][columns - 2][0] === null && (board[rows - 1][columns - 1][0] === 'x' || board[rows - 1][columns - 1][0] === 'X')) {
             board[rows - 2][columns - 2][1] = 'selectedSquare';
             board[rows - 2][columns - 2][2] = 'sendMove';
@@ -835,7 +835,7 @@ class App extends React.Component {
       } else if (selected.length > 0) {
         this.resetBlack(selected);
       } else {
-        board[rows][columns][1] = 'selectedPiece';
+        board[rows][columns][1] = sender ? 'selectedPiece selectedPieceRotated' : 'selectedPiece';
         if (rows > 0 && columns > 0 && board[rows - 1][columns - 1]
           !== undefined && board[rows - 1][columns - 1][0] === null) {
           board[rows - 1][columns - 1][1] = 'selectedSquare';

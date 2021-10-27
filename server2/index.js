@@ -193,6 +193,14 @@ app.get('/api/games/:id', async (req, res) => {
     .catch((err) => res.send(err));
 });
 
+app.get('/api/bugs', async (req, res) => {
+  Games.find({})
+    .then((data) => {
+      res.status(200).send(data)
+    })
+    .catch((err) => res.send(err));
+});
+
 app.post('/api/games/:id', async (req, res) => {
   Board.create(req.body.board)
     .then((data) => {
@@ -208,4 +216,32 @@ app.post('/api/games/:id', async (req, res) => {
       .catch((err) => res.send(err));
     })
     .catch((err) => console.log(err));
+});
+
+app.post('/api/bugs/:id', async (req, res) => {
+  const { states, bug, messages } = req.body;
+  if (states.length > 0) {
+    let newStates = [];
+    for (let i = 0; i < states.length; i++) {
+      newStates.push(JSON.parse(states[i]))
+    }
+    const newBody = {
+      states: newStates,
+      bug,
+      messages
+    }
+    Games.findById(req.params.id)
+      .then((data) => {
+        let newBugs = data.bugs;
+        newBugs.push(newBody)
+        Games.findByIdAndUpdate(req.params.id, {
+          bugs: newBugs,
+        })
+        .then(() => res.sendStatus(204))
+        .catch((err) => res.send(err));
+      })
+      .catch((err) => res.send(err));
+  } else {
+    res.sendStatus(204);
+  }
 });
