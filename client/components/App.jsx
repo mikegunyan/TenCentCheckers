@@ -10,11 +10,14 @@ import Messager from './messager';
 import { Howl } from 'howler';
 
 let client;
+let states = [];
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      bug: false,
+      bugs: false,
       mobileBrowser: false,
       openMessager: false,
       messageCount: 0,
@@ -45,6 +48,9 @@ class App extends React.Component {
       playerTwo: 'Player Two',
     };
     this.checkBrowser = this.checkBrowser.bind(this);
+    this.toggleBug = this.toggleBug.bind(this);
+    this.toggleBugs = this.toggleBugs.bind(this);
+    this.reportBug = this.reportBug.bind(this);
     this.playSound = this.playSound.bind(this);
     this.createConnection = this.createConnection.bind(this);
     this.makeBoard = this.makeBoard.bind(this);
@@ -98,6 +104,26 @@ class App extends React.Component {
     this.setState({ mobileBrowser: window.mobileCheck() });
   }
 
+  toggleBug() {
+    const { bug } = this.state;
+    this.setState({ bug: !bug });
+  }
+
+  toggleBugs() {
+    const { bugs } = this.state;
+    this.setState({ bugs: !bugs });
+  }
+
+  reportBug(bug) {
+    if (bug === '') { // aq1sw2de3fr4gt5hy6ju7ki8lo9
+      this.setState({ bugs: true });
+    } else if (bug !== '') {
+      const { id, messages } = this.state;
+      axios.post(`/api/bugs/${id}`, { states, bug, messages });
+      this.setState({ bug: false });
+    }
+  }
+
   playSound(src) {
     const sound = new Howl ({
       src,
@@ -111,7 +137,7 @@ class App extends React.Component {
     if (client) {
       client.close();
     }
-    client = new W3CWebSocket('ws://54.219.137.236:8000'); // 54.219.137.236
+    client = new W3CWebSocket('ws://localhost:8000'); // 54.219.137.236
     this.setState({ victory: '', victoryMessage: '', sender: false });
     client.onopen = () => {};
     client.onmessage = (message) => {
@@ -272,7 +298,7 @@ class App extends React.Component {
 
   settings() {
     const { settings } = this.state;
-    this.setState({ settings: !settings });
+    this.setState({ settings: !settings, bugs: false, bug: false });
   }
 
   saveGame() {
@@ -607,6 +633,8 @@ class App extends React.Component {
       }
     }
     this.playSound('https://tencentcheckers.s3.us-west-2.amazonaws.com/move.mp3');
+
+    states.push(JSON.stringify(this.state));
   }
 
   resetRed(selected) {
@@ -834,7 +862,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { sender, board, turn, modal, gameList, playerOne, leftGame, playerTwo, victory, settings, messages, messageCount,
+    const { sender, board, bug, bugs, turn, modal, gameList, playerOne, leftGame, playerTwo, victory, settings, messages, messageCount,
       savedView, saveView, nextJump, victoryMessage, usersList, clientID, invitation, openMessager, moveSender, mobileBrowser,
     } = this.state;
     const whichPiece = (square, index, i) => {
@@ -901,8 +929,13 @@ class App extends React.Component {
         <Settings
           saveGame={this.saveGame}
           changeGame={this.changeGame}
+          toggleBug={this.toggleBug}
+          toggleBugs={this.toggleBugs}
+          reportBug={this.reportBug}
           exit={this.settings}
           modal={modal}
+          bug={bug}
+          bugs={bugs}
           leftGame={leftGame}
           playerTwo={playerTwo}
           settings={settings}

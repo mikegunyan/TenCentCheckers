@@ -183,7 +183,7 @@ button:hover {
 
 
 /**  Messager  **/
-.drawerButton {
+.drawerButton { /* leftDrawer leftOpenDrawer leftDrawerButton */
   width: 28px;
   height: 100%;
   margin: 0px;
@@ -194,9 +194,6 @@ button:hover {
   color: black;
   font-size: 20px;
   z-index: 5;
-}
-.mobileButton {
-  width: 50px;
 }
 .drawerButton:hover {
   transform: none;
@@ -211,6 +208,9 @@ button:hover {
 .openDrawer {
   width: 400px;
   background-color: rgb(190, 169, 117);
+}
+.mobileButton {
+  width: 50px;
 }
 .mobileOpenDrawer{
   width: 100%;
@@ -297,4 +297,52 @@ button:hover {
 }
 .sendButton:hover {
   transform: none;
+}
+
+
+/**  Messager  **/
+.leftDrawerButton {
+  width: 28px;
+  height: 100%;
+  margin: 0px;
+  padding: 2px;
+  background-color: rgb(166, 149, 96);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 1);
+  border-radius: 0px 15px 15px 0px;
+  color: black;
+  font-size: 20px;
+  z-index: 5;
+}
+.leftDrawerButton:hover {
+  transform: none;
+}
+.leftDrawer {
+  position: fixed;
+  display: flex;
+  justify-content: right;
+  top: 50px; left: 0px; bottom: 10px;
+  border-radius: 0px 15px 15px 0px;
+  width: fit-content;
+  z-index: 5;
+}
+.leftOpenDrawer {
+  width: 400px;
+  background-color: rgb(190, 169, 117);
+}
+.stateTable {
+  padding: 10px;
+  width: 96%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+
+/**  Bug Viewer  **/
+.viewer {
+  margin: 0px 10%;
+  display: flex;
+  justify-content: space-between;
+}
+.navigate {
+  width: 20%;
 }

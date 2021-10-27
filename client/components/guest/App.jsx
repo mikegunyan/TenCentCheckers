@@ -337,7 +337,6 @@ class App extends React.Component {
         if (this.checkTurnRed()) {
           this.checkAutoJumpRed();
         } else {
-          console.log(red)
           const message = red === 1 ? '' : 'No more turns!';
           this.setState({ victory: playerOne, victoryMessage: message });
         }
@@ -361,7 +360,6 @@ class App extends React.Component {
         if (this.checkTurnBlack()) {
           this.checkAutoJumpBlack();
         } else {
-          console.log(black)
           const message = black === 1 ? '' : 'No more turns!';
           this.setState({ victory: playerTwo, victoryMessage: message });
         }

@@ -153,43 +153,43 @@ const users = [
   }
 ];
 
-const games = {
-  _id: '60676bd61029f4fc9cd84a00',
-  games: [{
-    name: 'Test',
-    gameId: '111111111111111111111111',
-  }],
-  _id: '60676bd61029f4fc9cd84a01',
-  games: [{
-    name: 'Test',
-    gameId: '111111111111111111111111',
-  }],
-  _id: '60676bd61029f4fc9cd84a02',
-  games: [{
-    name: 'Test',
-    gameId: '111111111111111111111111',
-  }],
-  _id: '60676bd61029f4fc9cd84a03',
-  games: [{
-    name: 'Test',
-    gameId: '111111111111111111111111',
-  }],
-  _id: '60676bd61029f4fc9cd84a04',
-  games: [{
-    name: 'Test',
-    gameId: '111111111111111111111111',
-  }],
-  _id: '60676bd61029f4fc9cd84a05',
-  games: [{
-    name: 'Test',
-    gameId: '111111111111111111111111',
-  }],
-  _id: '60676bd61029f4fc9cd84a06',
-  games: [{
-    name: 'Test',
-    gameId: '111111111111111111111111',
-  }],
-};
+const games = [
+  {
+    _id: '60676bd61029f4fc9cd84a00',
+    games: [],
+    bugs: [],
+  },
+  {
+    _id: '60676bd61029f4fc9cd84a01',
+    games: [],
+    bugs: [],
+  },
+  {
+    _id: '60676bd61029f4fc9cd84a02',
+    games: [],
+    bugs: [],
+  },
+  {
+    _id: '60676bd61029f4fc9cd84a03',
+    games: [],
+    bugs: [],
+  },
+  {
+    _id: '60676bd61029f4fc9cd84a04',
+    games: [],
+    bugs: [],
+  },
+  {
+    _id: '60676bd61029f4fc9cd84a05',
+    games: [],
+    bugs: [],
+  },
+  {
+    _id: '60676bd61029f4fc9cd84a06',
+    games: [],
+    bugs: [],
+  },
+];
 
 const seed = () => {
   Users.create(users)
