@@ -115,7 +115,7 @@ class App extends React.Component {
   }
 
   reportBug(bug) {
-    if (bug === '') { // aq1sw2de3fr4gt5hy6ju7ki8lo9
+    if (bug === 'aq1sw2de3') {
       this.setState({ bugs: true });
     } else if (bug !== '') {
       const { id, messages } = this.state;
