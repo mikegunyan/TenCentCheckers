@@ -8,7 +8,7 @@ echo "➡ Removing old image"
 docker rmi mikegunyan/tencentcheckers
 
 echo "➡ Pulling new image"
-docker pull mikegunyan/tencentcheckers
+docker pull mikegunyan/tencentcheckers:latest
 
 echo "➡ Starting new container"
 docker run -d -p 80:3000 --env HOST=$1 --env SESSION_SECRET=$2 --name mike mikegunyan/tencentcheckers
