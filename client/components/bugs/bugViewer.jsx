@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Messager from './messager';
+import Messager from '../messager';
 import StateViewer from './stateViewer';
 
 const BugViewer = ({ step, state, messages, navigate }) => {

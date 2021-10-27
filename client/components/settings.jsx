@@ -1,5 +1,5 @@
 import React from 'react';
-import Bugs from './bugs';
+import Bugs from './bugs/bugs';
 
 const buttons = (modal, saveGame, changeGame, exit, leftGame, toggleBug, bug) => {
   if (modal) {
