@@ -40,8 +40,7 @@ const BugViewer = ({ step, state, messages, navigate }) => {
 
   return (
     <div className="settingsBackground">
-      <div className="head"><h2>Checkers</h2></div>
-      <h3>{`Step ${step}`}</h3>
+      <div className="head"><h3>{`Step ${step}`}</h3></div>
       <div className="viewer">
         <button className="navigate" onClick={() => navigate('left')}>⬅</button>
         <button className="navigate" onClick={() => navigate('exit')}>Exit</button>

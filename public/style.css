@@ -341,8 +341,9 @@ button:hover {
 .viewer {
   margin: 0px 10%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .navigate {
+  margin: 10px;
   width: 20%;
 }
