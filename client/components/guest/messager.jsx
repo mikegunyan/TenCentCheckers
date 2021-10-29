@@ -21,7 +21,7 @@ const Messager = ({ openMessager, toggleDrawer }) => {
       <div className={openMessager ? 'drawer openDrawer' : 'drawer'}>
         <button
           className='drawerButton'
-          onClick={toggleDrawer}
+          onClick={() => { toggleDrawer(); setBadge(0); }}
         >
           <Stack spacing={4} direction="row" sx={{ color: 'action.active' }}>
             <StyledBadge color="secondary" badgeContent={badge}>
@@ -37,7 +37,7 @@ const Messager = ({ openMessager, toggleDrawer }) => {
       <div className={openMessager ? 'drawer openDrawer' : 'drawer'}>
         <button
           className='drawerButton'
-          onClick={toggleDrawer}
+          onClick={() => { toggleDrawer(); setBadge(0); }}
         >
           <Stack spacing={4} direction="row" sx={{ color: 'action.active' }}>
             <StyledBadge color="secondary" badgeContent={badge}>
@@ -46,8 +46,16 @@ const Messager = ({ openMessager, toggleDrawer }) => {
           </Stack>
         </button>
         <div className="drawerContent">
+          <div>
+            <p className="opponentName">
+              mrgunyan
+            </p>
+            <p className="opponentMessage">
+              Welcome to TenCentCheckers and thank you for visiting! Check out the message feature in an online game.
+            </p>
+          </div>
           <form action="/logout?_method=DELETE" method="POST">
-            <button className="drawerLogIn" type="submit">Log In</button>
+            <button className="altButton" type="submit">Log In</button>
           </form>
         </div>
       </div>

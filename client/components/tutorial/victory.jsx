@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Victory = ({ victory, message, isLoggedIn, exit, toggleTutorial }) => {
+const Victory = ({ victory, message, isLoggedIn, toggleTutorial, exit }) => {
   if (victory === '') {
     return null;
   }

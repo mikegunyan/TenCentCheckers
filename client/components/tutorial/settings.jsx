@@ -14,7 +14,7 @@ const Settings = ({ settings, isLoggedIn, toggleTutorial, exit }) => {
             <form action="/login" method="POST">
               <button className="altButton" type="submit">Exit Tutorial</button>
             </form> :
-            <button className="altButton" type="button" onClick={() => { exit(); toggleTutorial(); }}>Exit Tutorial</button>
+            <button className="altButton" type="button" onClick={() => { toggleTutorial(); exit(); }}>Exit Tutorial</button>
         }
         <form action="/logout?_method=DELETE" method="POST">
           <button className="altButton" type="submit">{isLoggedIn ? 'Log Out' : 'Log In'}</button>

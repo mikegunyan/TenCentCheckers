@@ -234,9 +234,6 @@ button:hover {
 .mobileContent {
   width: 90%;
 }
-.drawerLogIn {
-  width: 100px;
-}
 .messages {
   display: flex;
   font-size: 20px;
@@ -375,8 +372,4 @@ button:hover {
 .typeText {
   font-size: 50px;
   color: white;
-}
-.tutJumpBox {
-  background-color: rgb(146, 144, 144);
-  margin: 40% 25%;
 }
