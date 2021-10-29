@@ -1,7 +1,7 @@
 import React from 'react';
 import Bugs from './bugs/bugs';
 
-const buttons = (modal, saveGame, changeGame, exit, leftGame, toggleBug, bug) => {
+const buttons = (modal, saveGame, changeGame, exit, leftGame, toggleBug, bug, toggleTutorial) => {
   if (modal) {
     return null;
   }
@@ -14,7 +14,7 @@ const buttons = (modal, saveGame, changeGame, exit, leftGame, toggleBug, bug) =>
   );
 };
 
-const Settings = ({ settings, bug, bugs, leftGame, playerTwo, modal, exit, saveGame, changeGame, toggleBug, toggleBugs, reportBug }) => {
+const Settings = ({ settings, bug, bugs, leftGame, playerTwo, modal, exit, saveGame, changeGame, toggleBug, toggleBugs, toggleTutorial, reportBug }) => {
   if (!settings) {
     return null;
   }
@@ -24,7 +24,8 @@ const Settings = ({ settings, bug, bugs, leftGame, playerTwo, modal, exit, saveG
         <div className="head"><h2>Checkers</h2></div>
         <div className="formBox">
           <h2>{playerTwo} has left the game!</h2>
-          {buttons(modal, saveGame, changeGame, exit, leftGame, toggleBug, bug )}
+          {buttons(modal, saveGame, changeGame, exit, leftGame, toggleBug, bug, toggleTutorial)}
+          <button className="altButton" type="button" onClick={() => { exit(); changeGame(true); toggleTutorial(); }}>Tutorial</button>
           <form action="/logout?_method=DELETE" method="POST">
             <button className="altButton" type="submit">Log Out</button>
           </form>
@@ -60,7 +61,8 @@ const Settings = ({ settings, bug, bugs, leftGame, playerTwo, modal, exit, saveG
       <div className="head"><h2>Checkers</h2></div>
       <div className="formBox">
         <h2>Settings</h2>
-        {buttons(modal, saveGame, changeGame, exit, leftGame, toggleBug, bug)}
+        {buttons(modal, saveGame, changeGame, exit, leftGame, toggleBug, bug, toggleTutorial)}
+        <button className="altButton" type="button" onClick={() => { exit(); changeGame(true); toggleTutorial(); }}>Tutorial</button>
         <form action="/logout?_method=DELETE" method="POST">
           <button className="altButton" type="submit" onClick={() => changeGame(true)}>Log Out</button>
         </form>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import axios from 'axios';
+import Tutorial from './tutorial/Tutorial';
 import Welcome from './welcome';
 import Settings from './settings';
 import Save from './save';
@@ -16,6 +17,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      tutorial: false,
       bug: false,
       bugs: false,
       mobileBrowser: false,
@@ -48,6 +50,7 @@ class App extends React.Component {
       playerTwo: 'Player Two',
     };
     this.checkBrowser = this.checkBrowser.bind(this);
+    this.toggleTutorial = this.toggleTutorial.bind(this);
     this.toggleBug = this.toggleBug.bind(this);
     this.toggleBugs = this.toggleBugs.bind(this);
     this.reportBug = this.reportBug.bind(this);
@@ -102,6 +105,11 @@ class App extends React.Component {
       return check;
     };
     this.setState({ mobileBrowser: window.mobileCheck() });
+  }
+
+  toggleTutorial() {
+    const { tutorial } = this.state;
+    this.setState({ tutorial: !tutorial });
   }
 
   toggleBug() {
@@ -862,9 +870,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { sender, board, bug, bugs, turn, modal, gameList, playerOne, leftGame, playerTwo, victory, settings, messages, messageCount,
-      savedView, saveView, nextJump, victoryMessage, usersList, clientID, invitation, openMessager, moveSender, mobileBrowser,
+    const { tutorial, sender, board, bug, bugs, turn, modal, gameList, playerOne, leftGame, playerTwo, victory, settings, messages, messageCount, savedView, saveView, nextJump, victoryMessage, usersList, clientID, invitation, openMessager, moveSender, mobileBrowser,
     } = this.state;
+    if (tutorial) {
+      return (
+        <Tutorial isLoggedIn={true} toggleTutorial={this.toggleTutorial} />
+      );
+    }
     const whichPiece = (square, index, i) => {
       if (square[0] === null) {
         return null;
@@ -931,6 +943,7 @@ class App extends React.Component {
           changeGame={this.changeGame}
           toggleBug={this.toggleBug}
           toggleBugs={this.toggleBugs}
+          toggleTutorial={this.toggleTutorial}
           reportBug={this.reportBug}
           exit={this.settings}
           modal={modal}

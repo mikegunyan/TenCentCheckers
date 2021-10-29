@@ -6,5 +6,5 @@ import GuestApp from './components/guest/App';
 if (document.getElementById('app')) {
   ReactDOM.render(<App />, document.getElementById('app'));
 } else {
-  ReactDOM.render(<GuestApp />, document.getElementById('guestApp'));
+  ReactDOM.render(<GuestApp tutorial={false} />, document.getElementById('guestApp'));
 }

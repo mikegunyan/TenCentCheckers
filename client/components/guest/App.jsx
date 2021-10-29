@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Tutorial from '../tutorial/Tutorial';
 import Settings from './settings';
 import Victory from './victory';
 import Jump from './jump';
@@ -10,6 +11,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      tutorial: false,
       openMessager: false,
       nextJump: false,
       settings: false,
@@ -26,6 +28,7 @@ class App extends React.Component {
       playerTwo: 'Player Two',
     };
     this.makeBoard = this.makeBoard.bind(this);
+    this.toggleTutorial = this.toggleTutorial.bind(this);
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.playSound = this.playSound.bind(this);
     this.settings = this.settings.bind(this);
@@ -50,6 +53,11 @@ class App extends React.Component {
 
   componentDidMount() {
     this.makeBoard('000000000000000000000000');
+  }
+
+  toggleTutorial() {
+    const { tutorial } = this.state;
+    this.setState({ tutorial: !tutorial });
   }
 
   playSound(src) {
@@ -593,8 +601,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { openMessager, board, turn, playerOne, playerTwo, victory, settings, nextJump, victoryMessage,
+    const { tutorial, openMessager, board, turn, playerOne, playerTwo, victory, settings, nextJump, victoryMessage,
     } = this.state;
+    if (tutorial) {
+      return (
+        <Tutorial isLoggedIn={false} toggleTutorial={this.toggleTutorial} />
+      );
+    }
     const playersTurn = () => {
       if (turn === 'black') {
         return playerOne;
@@ -659,6 +672,7 @@ class App extends React.Component {
 
         <Settings
           exit={this.settings}
+          toggleTutorial={this.toggleTutorial}
           settings={settings}
         />
 
