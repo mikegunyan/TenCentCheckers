@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
 import SmsIcon from '@mui/icons-material/Sms';
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    top: -4,
-    right: 20,
-    border: '1px solid black',
-    backgroundColor: 'rgb(166, 149, 96)',
-    color: 'black'
-  },
-}));
-
 const Messager = ({ openMessager, toggleDrawer }) => {
   const [badge, setBadge] = useState(1);
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      top: -4,
+      right: 20,
+      border: '1px solid black',
+      backgroundColor: 'rgb(166, 149, 96)'
+    },
+  }));
   if (!openMessager) {
     return (
       <div className={openMessager ? 'drawer openDrawer' : 'drawer'}>
@@ -23,11 +20,9 @@ const Messager = ({ openMessager, toggleDrawer }) => {
           className='drawerButton'
           onClick={() => { toggleDrawer(); setBadge(0); }}
         >
-          <Stack spacing={4} direction="row" sx={{ color: 'action.active' }}>
-            <StyledBadge color="secondary" badgeContent={badge}>
-              <SmsIcon />
-            </StyledBadge>
-          </Stack>
+          <StyledBadge badgeContent={badge}>
+            <SmsIcon />
+          </StyledBadge>
         </button>
       </div>
     );
@@ -39,11 +34,9 @@ const Messager = ({ openMessager, toggleDrawer }) => {
           className='drawerButton'
           onClick={() => { toggleDrawer(); setBadge(0); }}
         >
-          <Stack spacing={4} direction="row" sx={{ color: 'action.active' }}>
-            <StyledBadge color="secondary" badgeContent={badge}>
-              <SmsIcon />
-            </StyledBadge>
-          </Stack>
+          <StyledBadge color="secondary" badgeContent={badge}>
+            <SmsIcon />
+          </StyledBadge>
         </button>
         <div className="drawerContent">
           <div>

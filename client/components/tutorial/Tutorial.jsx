@@ -50,9 +50,7 @@ class Tutorial extends React.Component {
     this.toggleJump = this.toggleJump.bind(this);
     this.skipJump = this.skipJump.bind(this);
     this.exitGuest = this.exitGuest.bind(this);
-    this.checkTurnBlack = this.checkTurnBlack.bind(this);
     this.jumpCheckBlack = this.jumpCheckBlack.bind(this);
-    this.checkAutoJumpBlack = this.checkAutoJumpBlack.bind(this);
     this.checkNextJumpBlack = this.checkNextJumpBlack.bind(this);
     this.moveSelected = this.moveSelected.bind(this);
     this.resetBlack = this.resetBlack.bind(this);
@@ -131,61 +129,6 @@ class Tutorial extends React.Component {
     this.setState({ nextJump: true });
   }
 
-  checkTurnBlack() {
-    const { board } = this.state;
-    for (let row = 0; row < board.length; row += 1) {
-      for (let column = 0; column < board[row].length; column += 1) {
-        if (board[row][column][0] === 'o' || board[row][column][0] === 'O') {
-          if (board[row][column][0] === 'O') {
-            if ((board[row + 2] && board[row + 2][column - 2] && row < 7 && column > 0 && board[row + 1][column - 1][0] === 'X' && board[row + 2][column - 2][0] === null)
-            || (board[row + 2] && board[row + 2][column + 2] && row < 7 && column < 7 && board[row + 1][column + 1][0] === 'X' && board[row + 2][column + 2][0] === null)
-            || (board[row + 2] && board[row + 2][column - 2] && row < 7 && column > 0 && board[row + 1][column - 1][0] === 'x' && board[row + 2][column - 2][0] === null)
-            || (board[row + 2] && board[row + 2][column + 2] && row < 7 && column < 7 && board[row + 1][column + 1][0] === 'x' && board[row + 2][column + 2][0] === null)
-            || (board[row + 1] && board[row + 1][column - 1] && board[row + 1][column - 1][0] === null)
-            || (board[row + 1] && board[row + 1][column + 1] && board[row + 1][column + 1][0] === null)) {
-              return true;
-            }
-          }
-          if ((board[row - 2] && board[row - 2][column - 2] && row > 0 && column > 0 && board[row - 1][column - 1][0] === 'X' && board[row - 2][column - 2][0] === null)
-            || (board[row - 2] && board[row - 2][column + 2] && row > 0 && column < 7 && board[row - 1][column + 1][0] === 'X' && board[row - 2][column + 2][0] === null)
-            || (board[row - 2] && board[row - 2][column - 2] && row > 0 && column > 0 && board[row - 1][column - 1][0] === 'x' && board[row - 2][column - 2][0] === null)
-            || (board[row - 2] && board[row - 2][column + 2] && row > 0 && column < 7 && board[row - 1][column + 1][0] === 'x' && board[row - 2][column + 2][0] === null)
-            || (board[row - 1] && board[row - 1][column - 1] && board[row - 1][column - 1][0] === null)
-            || (board[row - 1] && board[row - 1][column + 1] && board[row - 1][column + 1][0] === null)) {
-            return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
-
-  checkAutoJumpBlack() {
-    const { board } = this.state;
-    for (let row = 0; row < board.length; row += 1) {
-      for (let column = 0; column < board[row].length; column += 1) {
-        if (board[row][column][0] === 'o' || board[row][column][0] === 'O') {
-          if (board[row][column][0] === 'O') {
-            if ((board[row + 2] && board[row + 2][column - 2] && row < 7 && column > 0 && board[row + 1][column - 1][0] === 'X' && board[row + 2][column - 2][0] === null)
-            || (board[row + 2] && board[row + 2][column + 2] && row < 7 && column < 7 && board[row + 1][column + 1][0] === 'X' && board[row + 2][column + 2][0] === null)
-            || (board[row + 2] && board[row + 2][column - 2] && row < 7 && column > 0 && board[row + 1][column - 1][0] === 'x' && board[row + 2][column - 2][0] === null)
-            || (board[row + 2] && board[row + 2][column + 2] && row < 7 && column < 7 && board[row + 1][column + 1][0] === 'x' && board[row + 2][column + 2][0] === null)) {
-              this.setState({ autoJumpBlack: true });
-              break;
-            }
-          }
-          if ((board[row - 2] && board[row - 2][column - 2] && row > 0 && column > 0 && board[row - 1][column - 1][0] === 'X' && board[row - 2][column - 2][0] === null)
-            || (board[row - 2] && board[row - 2][column + 2] && row > 0 && column < 7 && board[row - 1][column + 1][0] === 'X' && board[row - 2][column + 2][0] === null)
-            || (board[row - 2] && board[row - 2][column - 2] && row > 0 && column > 0 && board[row - 1][column - 1][0] === 'x' && board[row - 2][column - 2][0] === null)
-            || (board[row - 2] && board[row - 2][column + 2] && row > 0 && column < 7 && board[row - 1][column + 1][0] === 'x' && board[row - 2][column + 2][0] === null)) {
-            this.setState({ autoJumpBlack: true });
-            break;
-          }
-        }
-      }
-    }
-  }
-
   jumpCheckBlack(rows, columns) {
     const { board } = this.state;
     let isDouble = false;
@@ -240,7 +183,6 @@ class Tutorial extends React.Component {
       this.setState({ victory: playerOne, victoryMessage: 'You have finished the tutorial!' });
     }
     this.playSound('https://tencentcheckers.s3.us-west-2.amazonaws.com/move.mp3');
-    console.log(step)
     if (step !== 4 && step !== 8 && step !== 10 && step !== 11) {
       this.makeBoard(`00000000000000000000000${step}`);
     }
@@ -303,95 +245,58 @@ class Tutorial extends React.Component {
     const {
       texts, step, board, selected, turn, autoJumpBlack,
     } = this.state;
-    if (turn === 'black') {
-      const target = event.target.getAttribute('name');
-      const columns = Number(target.charAt(1));
-      const rows = Number(target.charAt(0));
-      if (autoJumpBlack) {
-        if (selected.length > 0) {
-          // this.resetBlackJump();
-        } else {
-          board[rows][columns][1] = 'selectedPiece';
-          if (rows > 1 && columns > 1 && board[rows - 2][columns - 2] !== undefined && board[rows - 2][columns - 2][0] === null && (board[rows - 1][columns - 1][0] === 'x' || board[rows - 1][columns - 1][0] === 'X')) {
-            board[rows - 2][columns - 2][1] = 'selectedSquare';
-            board[rows - 2][columns - 2][2] = 'moveSelected';
-          }
-          if (rows > 1 && columns < 6 && board[rows - 2][columns + 2] !== undefined && board[rows - 2][columns + 2][0] === null && (board[rows - 1][columns + 1][0] === 'x' || board[rows - 1][columns + 1][0] === 'X')) {
-            board[rows - 2][columns + 2][1] = 'selectedSquare';
-            board[rows - 2][columns + 2][2] = 'moveSelected';
-          }
-          if (rows < 6 && columns > 1 && board[rows + 2][columns - 2] !== undefined && board[rows + 2][columns - 2][0] === null && board[rows][columns][0] === 'O' && (board[rows + 1][columns - 1][0] === 'x' || board[rows + 1][columns - 1][0] === 'X')) {
-            board[rows + 2][columns - 2][1] = 'selectedSquare';
-            board[rows + 2][columns - 2][2] = 'moveSelected';
-          }
-          if (rows < 6 && columns < 6 && board[rows + 2][columns + 2] !== undefined && board[rows + 2][columns + 2][0] === null && board[rows][columns][0] === 'O' && (board[rows + 1][columns + 1][0] === 'x' || board[rows + 1][columns + 1][0] === 'X')) {
-            board[rows + 2][columns + 2][1] = 'selectedSquare';
-            board[rows + 2][columns + 2][2] = 'moveSelected';
-          }
-          this.setState({ selected: [rows, columns], text: texts[step + 1], step: step + 1 });
-        }
-      } else if (selected.length > 0) {
-        // this.resetBlack();
-      } else {
-        board[rows][columns][1] = 'selectedPiece';
-        if (rows > 0 && columns > 0 && board[rows - 1][columns - 1]
-          !== undefined && board[rows - 1][columns - 1][0] === null) {
-          board[rows - 1][columns - 1][1] = 'selectedSquare';
-          board[rows - 1][columns - 1][2] = 'moveSelected';
-        }
-        if (rows > 0 && columns < 7 && board[rows - 1][columns + 1]
-          !== undefined && board[rows - 1][columns + 1][0] === null) {
-          board[rows - 1][columns + 1][1] = 'selectedSquare';
-          board[rows - 1][columns + 1][2] = 'moveSelected';
-        }
-        if (rows < 7 && columns > 0 && board[rows + 1][columns - 1]
-          !== undefined && board[rows + 1][columns - 1][0] === null && board[rows][columns][0] === 'O') {
-          board[rows + 1][columns - 1][1] = 'selectedSquare';
-          board[rows + 1][columns - 1][2] = 'moveSelected';
-        }
-        if (rows < 7 && columns < 7 && board[rows + 1][columns + 1]
-          !== undefined && board[rows + 1][columns + 1][0] === null && board[rows][columns][0] === 'O') {
-          board[rows + 1][columns + 1][1] = 'selectedSquare';
-          board[rows + 1][columns + 1][2] = 'moveSelected';
-        }
-        this.setState({ selected: [rows, columns], text: texts[step + 1], step: step + 1 });
+    const target = event.target.getAttribute('name');
+    const columns = Number(target.charAt(1));
+    const rows = Number(target.charAt(0));
+    if (autoJumpBlack) {
+      board[rows][columns][1] = 'selectedPiece';
+      if (rows > 1 && columns > 1 && board[rows - 2][columns - 2] !== undefined && board[rows - 2][columns - 2][0] === null && (board[rows - 1][columns - 1][0] === 'x' || board[rows - 1][columns - 1][0] === 'X')) {
+        board[rows - 2][columns - 2][1] = 'selectedSquare';
+        board[rows - 2][columns - 2][2] = 'moveSelected';
       }
+      if (rows > 1 && columns < 6 && board[rows - 2][columns + 2] !== undefined && board[rows - 2][columns + 2][0] === null && (board[rows - 1][columns + 1][0] === 'x' || board[rows - 1][columns + 1][0] === 'X')) {
+        board[rows - 2][columns + 2][1] = 'selectedSquare';
+        board[rows - 2][columns + 2][2] = 'moveSelected';
+      }
+      if (rows < 6 && columns > 1 && board[rows + 2][columns - 2] !== undefined && board[rows + 2][columns - 2][0] === null && board[rows][columns][0] === 'O' && (board[rows + 1][columns - 1][0] === 'x' || board[rows + 1][columns - 1][0] === 'X')) {
+        board[rows + 2][columns - 2][1] = 'selectedSquare';
+        board[rows + 2][columns - 2][2] = 'moveSelected';
+      }
+      if (rows < 6 && columns < 6 && board[rows + 2][columns + 2] !== undefined && board[rows + 2][columns + 2][0] === null && board[rows][columns][0] === 'O' && (board[rows + 1][columns + 1][0] === 'x' || board[rows + 1][columns + 1][0] === 'X')) {
+        board[rows + 2][columns + 2][1] = 'selectedSquare';
+        board[rows + 2][columns + 2][2] = 'moveSelected';
+      }
+      this.setState({ selected: [rows, columns], text: texts[step + 1], step: step + 1 });
+    } else {
+      board[rows][columns][1] = 'selectedPiece';
+      if (rows > 0 && columns > 0 && board[rows - 1][columns - 1]
+        !== undefined && board[rows - 1][columns - 1][0] === null) {
+        board[rows - 1][columns - 1][1] = 'selectedSquare';
+        board[rows - 1][columns - 1][2] = 'moveSelected';
+      }
+      if (rows > 0 && columns < 7 && board[rows - 1][columns + 1]
+        !== undefined && board[rows - 1][columns + 1][0] === null) {
+        board[rows - 1][columns + 1][1] = 'selectedSquare';
+        board[rows - 1][columns + 1][2] = 'moveSelected';
+      }
+      if (rows < 7 && columns > 0 && board[rows + 1][columns - 1]
+        !== undefined && board[rows + 1][columns - 1][0] === null && board[rows][columns][0] === 'O') {
+        board[rows + 1][columns - 1][1] = 'selectedSquare';
+        board[rows + 1][columns - 1][2] = 'moveSelected';
+      }
+      if (rows < 7 && columns < 7 && board[rows + 1][columns + 1]
+        !== undefined && board[rows + 1][columns + 1][0] === null && board[rows][columns][0] === 'O') {
+        board[rows + 1][columns + 1][1] = 'selectedSquare';
+        board[rows + 1][columns + 1][2] = 'moveSelected';
+      }
+      this.setState({ selected: [rows, columns], text: texts[step + 1], step: step + 1 });
     }
   }
 
   render() {
-    const { step, text, textClass, openMessager, board, turn, playerOne, playerTwo, victory, settings, nextJump, victoryMessage,
+    const { turn, playerOne, playerTwo, board, text, textClass, openMessager, settings, victory, victoryMessage, nextJump, step,
     } = this.state;
     const { isLoggedIn, toggleTutorial } = this.props;
-    const playersTurn = () => {
-      if (turn === 'black') {
-        return playerOne;
-      }
-      return playerTwo;
-    };
-    const whichPiece = (square, index, i) => {
-      if (square[0] === null) {
-        return null;
-      }
-      if (square[0] === 'x') {
-        return (
-          <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/redPiece.png" />
-        );
-      }
-      if (square[0] === 'X') {
-        return (
-          <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/kingRedPiece.png" />
-        );
-      }
-      if (square[0] === 'O') {
-        return (
-          <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/kingBlackPiece.png" />
-        );
-      }
-      return (
-        <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/blackPiece.png" />
-      );
-    };
     return (
       <div className="bodyBackground">
         <img onClick={this.settings} className="settings" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/settings.png"/>
@@ -399,7 +304,7 @@ class Tutorial extends React.Component {
           <img className="mr" src="https://michaelgunyanresume.s3.us-west-2.amazonaws.com/images/blackMr.png"/>
         </a>
         <div className="head">
-          <h5>{`Your turn ${playersTurn()}!`}</h5>
+          <h5>{`Your turn ${turn === 'black' ? playerOne : playerTwo}!`}</h5>
         </div>
         <div>
           {board.map((row, index) => (
@@ -412,15 +317,35 @@ class Tutorial extends React.Component {
                   className={square[1]}
                   key={`square ${Math.random() * 1000}`}
                 >
-                  {whichPiece(square, index, i)}
+                  {square[0] === null ?
+                    null :
+                    <img
+                      name={`${index}${i}`}
+                      className="piece"
+                      alt=""
+                      src={
+                        `https://tencentcheckers.s3.us-west-2.amazonaws.com/${
+                          square[0] === 'x' ?
+                            'redPiece' :
+                            square[0] === 'X' ?
+                              'kingRedPiece' :
+                              square[0] === 'O' ?
+                                'kingBlackPiece' :
+                                'blackPiece'
+                        }.png`
+                      }
+                    />
+                  }
                 </div>
               ))}
             </div>
           ))}
         </div>
 
-        <TypeText text={text} textClass={textClass} />
-
+        <TypeText
+          text={text}
+          textClass={textClass}
+        />
 
         <Messager
           openMessager={openMessager}
@@ -430,10 +355,10 @@ class Tutorial extends React.Component {
         />
 
         <Settings
-          exit={this.settings}
+          settings={settings}
           isLoggedIn={isLoggedIn}
           toggleTutorial={toggleTutorial}
-          settings={settings}
+          exit={this.settings}
         />
 
         <Victory

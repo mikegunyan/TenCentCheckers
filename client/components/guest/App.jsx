@@ -601,42 +601,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { tutorial, openMessager, board, turn, playerOne, playerTwo, victory, settings, nextJump, victoryMessage,
+    const { tutorial, turn, playerOne, playerTwo, board, openMessager, settings, victory, victoryMessage, nextJump,
     } = this.state;
     if (tutorial) {
       return (
         <Tutorial isLoggedIn={false} toggleTutorial={this.toggleTutorial} />
       );
     }
-    const playersTurn = () => {
-      if (turn === 'black') {
-        return playerOne;
-      }
-      return playerTwo;
-    };
-    const whichPiece = (square, index, i) => {
-      if (square[0] === null) {
-        return null;
-      }
-      if (square[0] === 'x') {
-        return (
-          <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/redPiece.png" />
-        );
-      }
-      if (square[0] === 'X') {
-        return (
-          <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/kingRedPiece.png" />
-        );
-      }
-      if (square[0] === 'O') {
-        return (
-          <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/kingBlackPiece.png" />
-        );
-      }
-      return (
-        <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/blackPiece.png" />
-      );
-    };
     return (
       <div className="bodyBackground">
         <img onClick={this.settings} className="settings" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/settings.png"/>
@@ -644,7 +615,7 @@ class App extends React.Component {
           <img className="mr" src="https://michaelgunyanresume.s3.us-west-2.amazonaws.com/images/blackMr.png"/>
         </a>
         <div className="head">
-          <h5>{`Your turn ${playersTurn()}!`}</h5>
+          <h5>{`Your turn ${turn === 'black' ? playerOne : playerTwo}!`}</h5>
         </div>
         <div>
           {board.map((row, index) => (
@@ -657,7 +628,25 @@ class App extends React.Component {
                   className={square[1]}
                   key={`square ${Math.random() * 1000}`}
                 >
-                  {whichPiece(square, index, i)}
+                  {square[0] === null ?
+                    null :
+                    <img
+                      name={`${index}${i}`}
+                      className="piece"
+                      alt=""
+                      src={
+                        `https://tencentcheckers.s3.us-west-2.amazonaws.com/${
+                          square[0] === 'x' ?
+                            'redPiece' :
+                            square[0] === 'X' ?
+                              'kingRedPiece' :
+                              square[0] === 'O' ?
+                                'kingBlackPiece' :
+                                'blackPiece'
+                        }.png`
+                      }
+                    />
+                  }
                 </div>
               ))}
             </div>
@@ -671,9 +660,9 @@ class App extends React.Component {
         />
 
         <Settings
-          exit={this.settings}
-          toggleTutorial={this.toggleTutorial}
           settings={settings}
+          toggleTutorial={this.toggleTutorial}
+          exit={this.settings}
         />
 
         <Victory

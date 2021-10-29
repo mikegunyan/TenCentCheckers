@@ -4,6 +4,7 @@ import Badge from '@mui/material/Badge';
 import SmsIcon from '@mui/icons-material/Sms';
 
 const Messager = ({ openMessager, isLoggedIn, toggleTutorial, toggleDrawer }) => {
+  const [badge, setBadge] = useState(1);
   const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       top: -4,
@@ -12,7 +13,6 @@ const Messager = ({ openMessager, isLoggedIn, toggleTutorial, toggleDrawer }) =>
       backgroundColor: 'rgb(166, 149, 96)'
     },
   }));
-  const [badge, setBadge] = useState(1);
   if (!openMessager) {
     return (
       <div className={openMessager ? 'drawer openDrawer' : 'drawer'}>

@@ -9,7 +9,7 @@ const Settings = ({ settings, toggleTutorial, exit }) => {
       <div className="head"><h2>Checkers</h2></div>
       <div className="formBox">
         <h2>Settings</h2>
-        <button className="altButton" type="button" onClick={() => { exit(); toggleTutorial(); }}>Tutorial</button>
+        <button className="altButton" type="button" onClick={() => { toggleTutorial(); exit(); }}>Tutorial</button>
         <form action="/logout?_method=DELETE" method="POST">
           <button className="altButton" type="submit">Log In</button>
         </form>

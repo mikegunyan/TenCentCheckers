@@ -877,29 +877,6 @@ class App extends React.Component {
         <Tutorial isLoggedIn={true} toggleTutorial={this.toggleTutorial} />
       );
     }
-    const whichPiece = (square, index, i) => {
-      if (square[0] === null) {
-        return null;
-      }
-      if (square[0] === 'x') {
-        return (
-          <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/redPiece.png" />
-        );
-      }
-      if (square[0] === 'X') {
-        return (
-          <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/kingRedPiece.png" />
-        );
-      }
-      if (square[0] === 'O') {
-        return (
-          <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/kingBlackPiece.png" />
-        );
-      }
-      return (
-        <img name={`${index}${i}`} className="piece" alt="" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/blackPiece.png" />
-      );
-    };
     return (
       <div className="bodyBackground">
         <img onClick={this.settings} className="settings" src="https://tencentcheckers.s3.us-west-2.amazonaws.com/settings.png"/>
@@ -920,7 +897,25 @@ class App extends React.Component {
                   className={sender ? `${square[1]} rotate` : square[1]}
                   key={`square ${Math.random() * 1000}`}
                 >
-                  {whichPiece(square, index, i)}
+                  {square[0] === null ?
+                    null :
+                    <img
+                      name={`${index}${i}`}
+                      className="piece"
+                      alt=""
+                      src={
+                        `https://tencentcheckers.s3.us-west-2.amazonaws.com/${
+                          square[0] === 'x' ?
+                            'redPiece' :
+                            square[0] === 'X' ?
+                              'kingRedPiece' :
+                              square[0] === 'O' ?
+                                'kingBlackPiece' :
+                                'blackPiece'
+                        }.png`
+                      }
+                    />
+                  }
                 </div>
               ))}
             </div>

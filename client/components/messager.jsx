@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
 import SmsIcon from '@mui/icons-material/Sms';
 import TelegramIcon from '@mui/icons-material/Telegram';
@@ -10,8 +9,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     top: -4,
     right: 20,
     border: '1px solid black',
-    backgroundColor: 'rgb(166, 149, 96)',
-    color: 'black'
+    backgroundColor: 'rgb(166, 149, 96)'
   },
 }));
 
@@ -36,11 +34,9 @@ const Messager = ({ openMessager, messageCount, mobileBrowser, messages, playerO
           className={mobileBrowser ? 'drawerButton mobileButton' : 'drawerButton'}
           onClick={toggleDrawer}
         >
-          <Stack spacing={4} direction="row" sx={{ color: 'action.active' }}>
-            <StyledBadge color="secondary" badgeContent={messageCount}>
-              <SmsIcon />
-            </StyledBadge>
-          </Stack>
+          <StyledBadge badgeContent={messageCount}>
+            <SmsIcon />
+          </StyledBadge>
         </button>
       </div>
     );
@@ -52,11 +48,9 @@ const Messager = ({ openMessager, messageCount, mobileBrowser, messages, playerO
           className={mobileBrowser ? 'drawerButton mobileButton' : 'drawerButton'}
           onClick={toggleDrawer}
         >
-          <Stack spacing={4} direction="row" sx={{ color: 'action.active' }}>
-            <StyledBadge color="secondary" badgeContent={messageCount}>
-              <SmsIcon />
-            </StyledBadge>
-          </Stack>
+          <StyledBadge badgeContent={messageCount}>
+            <SmsIcon />
+          </StyledBadge>
         </button>
         <div className={mobileBrowser ? 'drawerContent mobileContent' : 'drawerContent'}>
           <div className="messages">
